@@ -105,6 +105,16 @@ def load_data(args):
         X = df.drop(label_col, axis=1).to_numpy()
         y = df[label_col].to_numpy()
 
+    elif args.dataset == "Bufix":  # Binary classification dataset without categorical data
+        path = "/opt/notebooks/input/sortedbulk_data-1.csv"  # Missing values already filtered
+        df = pd.read_csv(path)
+        drop_cols = ["num_telefono","target_event_date","target_date","partition_date"]
+        df = df.drop(drop_cols, axis = 1)
+        
+        label_col = 'target'
+        X = df.drop(label_col, axis=1).to_numpy()
+        y = df[label_col].to_numpy()
+
     else:
         raise AttributeError("Dataset \"" + args.dataset + "\" not available")
 

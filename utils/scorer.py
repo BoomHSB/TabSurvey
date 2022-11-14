@@ -1,4 +1,4 @@
-from sklearn.metrics import mean_squared_error, r2_score, accuracy_score, f1_score, log_loss, roc_auc_score
+from sklearn.metrics import mean_squared_error, r2_score, accuracy_score, f1_score, log_loss, roc_auc_score, precision_score
 import numpy as np
 
 
@@ -69,6 +69,7 @@ class ClassScorer(Scorer):
         self.aucs = []
         self.accs = []
         self.f1s = []
+        self.precisions = []
 
     def eval(self, y_true, y_prediction, y_probabilities):
         logloss = log_loss(y_true, y_probabilities)
@@ -77,6 +78,7 @@ class ClassScorer(Scorer):
 
         acc = accuracy_score(y_true, y_prediction)
         f1 = f1_score(y_true, y_prediction, average="weighted")  # use here macro or weighted?
+        
 
         self.loglosses.append(logloss)
         self.aucs.append(auc)
@@ -125,13 +127,15 @@ class BinScorer(Scorer):
 
         acc = accuracy_score(y_true, y_prediction)
         f1 = f1_score(y_true, y_prediction, average="micro")  # use here macro or weighted?
+        precision = precision_score(y_true, y_prediction)
 
         self.loglosses.append(logloss)
         self.aucs.append(auc)
         self.accs.append(acc)
         self.f1s.append(f1)
-
-        return {"Log Loss": logloss, "AUC": auc, "Accuracy": acc, "F1 score": f1}
+        self.precisions.append(precision)
+        
+        return {"Log Loss": logloss, "AUC": auc, "Accuracy": acc, "F1 score": f1, "Precision": precision}
 
     def get_results(self):
         logloss_mean = np.mean(self.loglosses)
@@ -146,6 +150,9 @@ class BinScorer(Scorer):
         f1_mean = np.mean(self.f1s)
         f1_std = np.std(self.f1s)
 
+        prec_mean = np.mean(self.precisions)
+        prec_std = np.std(self.precisions)
+
         return {"Log Loss - mean": logloss_mean,
                 "Log Loss - std": logloss_std,
                 "AUC - mean": auc_mean,
@@ -153,7 +160,9 @@ class BinScorer(Scorer):
                 "Accuracy - mean": acc_mean,
                 "Accuracy - std": acc_std,
                 "F1 score - mean": f1_mean,
-                "F1 score - std": f1_std}
+                "F1 score - std": f1_std,
+                "Precision - mean": prec_mean,
+                "Precision -std": prec_std}
 
     def get_objective_result(self):
         return np.mean(self.aucs)

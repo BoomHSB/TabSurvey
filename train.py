@@ -120,6 +120,8 @@ def main(args):
     model = model_name(study.best_trial.params, args)
     cross_validation(model, X, y, args, save_model=True)
 
+    
+
 
 def main_once(args):
     print("Train model with given hyperparameters")

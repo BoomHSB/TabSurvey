@@ -65,7 +65,7 @@ class XGBoost(BaseModel):
     @classmethod
     def define_trial_parameters(cls, trial, args):
         params = {
-            "max_depth": trial.suggest_int("max_depth", 2, 12, log=True),
+            "max_depth": trial.suggest_int("max_depth", 4, 12, log=True),
             "alpha": trial.suggest_float("alpha", 1e-8, 1.0, log=True),
             "lambda": trial.suggest_float("lambda", 1e-8, 1.0, log=True),
             "eta": trial.suggest_float("eta", 0.01, 0.3, log=True)
