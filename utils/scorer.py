@@ -69,7 +69,6 @@ class ClassScorer(Scorer):
         self.aucs = []
         self.accs = []
         self.f1s = []
-        self.precisions = []
 
     def eval(self, y_true, y_prediction, y_probabilities):
         logloss = log_loss(y_true, y_probabilities)
@@ -120,6 +119,7 @@ class BinScorer(Scorer):
         self.aucs = []
         self.accs = []
         self.f1s = []
+        self.precisions = []
 
     def eval(self, y_true, y_prediction, y_probabilities):
         logloss = log_loss(y_true, y_probabilities)
