@@ -124,8 +124,8 @@ class CatBoost(BaseModel):
     def define_trial_parameters(cls, trial, args):
         params = {
             "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3, log=True),
-            "max_depth": trial.suggest_int("max_depth", 2, 12, log=True),
-            "l2_leaf_reg": trial.suggest_float("l2_leaf_reg", 0.5, 30, log=True),
+            "max_depth": trial.suggest_int("max_depth", 4, 12, log=True),
+            "l2_leaf_reg": trial.suggest_float("l2_leaf_reg", 0.1, 20, log=True),
         }
         return params
 
@@ -176,7 +176,7 @@ class LightGBM(BaseModel):
     @classmethod
     def define_trial_parameters(cls, trial, args):
         params = {
-            "num_leaves": trial.suggest_int("num_leaves", 2, 4096, log=True),
+            "num_leaves": trial.suggest_int("num_leaves", 4, 1024, log=True),
             "lambda_l1": trial.suggest_float("lambda_l1", 1e-8, 10.0, log=True),
             "lambda_l2": trial.suggest_float("lambda_l2", 1e-8, 10.0, log=True),
             "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3, log=True)

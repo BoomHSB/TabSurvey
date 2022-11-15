@@ -38,10 +38,7 @@ MODELS=( ["LinearModel"]=$SKLEARN_ENV
          #["DANet"]=$TORCH_ENV
           )
 
-CONFIGS=( "config/adult.yml"
-          "config/covertype.yml"
-          "config/california_housing.yml"
-          "config/higgs.yml"
+CONFIGS=( "config/bufix.yml"
           )
 
 # conda init bash

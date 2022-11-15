@@ -36,7 +36,7 @@ class MLP(BaseModelTorch):
         params = {
             "hidden_dim": trial.suggest_int("hidden_dim", 10, 100),
             "n_layers": trial.suggest_int("n_layers", 2, 5),
-            "learning_rate": trial.suggest_float("learning_rate", 0.0005, 0.001)
+            "learning_rate": trial.suggest_float("learning_rate", 0.0005, 0.01)
         }
         return params
 
