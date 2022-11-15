@@ -10,3 +10,4 @@ output/
 input/
 
 *.db
+docker_commands.txt
