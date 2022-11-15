@@ -78,7 +78,7 @@ class TabTransformer(BaseModelTorch):
 
         train_dataset = TensorDataset(X, y)
         train_loader = DataLoader(dataset=train_dataset, batch_size=self.batch_size, shuffle=True,
-                                  num_workers=2)
+                                  num_workers=4)
 
         val_dataset = TensorDataset(X_val, y_val)
         val_loader = DataLoader(dataset=val_dataset, batch_size=self.args.val_batch_size, shuffle=True)
@@ -90,6 +90,7 @@ class TabTransformer(BaseModelTorch):
         val_loss_history = []
 
         for epoch in range(self.args.epochs):
+            print(self.args.epochs)
             for i, (batch_X, batch_y) in enumerate(train_loader):
 
                 if self.args.cat_idx:
